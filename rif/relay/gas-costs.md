@@ -17,9 +17,11 @@ V2 introduces a cheaper template ([SmartWallet](https://github.com/rsksmart/rif-
 
 | RIF Version | SW Template       | Avg. overhead gas |
 |-------------|-------------------|-------------------|
-| 1           | SmartWallet       | 172400            |
-| 2           | CustomSmartWallet | 98070             |
-| 2           | SmartWallet       | 97695             |
+| 0.1           | SmartWallet       | 172400            |
+| 0.2           | CustomSmartWallet | 98070             |
+| 0.2           | SmartWallet       | 97695             |
+| 1             | CustomSmartWallet | TBD               |
+| 1             | SmartWallet       | TBD               |
 
 Note that the instance of CustomSmartWallet used didn't point to any extra custom logic.
 
