@@ -46,14 +46,13 @@ It is important to recall that - as a security measure - version 1 contracts dep
 
 ### Overview
 
-Including a revenue-sharing mechanism to the RIF Relay service should not introduce a price penalty to the RIF Relay users. With this restriction in mind, we proposed to modify the address used to pay (in tokens) for a successful transaction relay (or deploy). 
+Including a revenue-sharing mechanism to the RIF Relay service doesn't introduce a price penalty to the RIF Relay users. We modified the address used to receive tha payment (in tokens) for a successful transaction relay (or deploy).
 
 In its current implementation, the RelayRequest and the DeployRequest include a relayWorker attribute to identify which account paid for the gas. The RIF Relay SmartWallet pays directly to this account the number of tokens negotiated for the Relay (or Deploy) service. The relayWorker attribute can be replaced with the address of a Smart Contract containing the revenue sharing logic. 
 
 This change will not alter the current relay flow, keeping its cost as it is today, and it will also introduce the flexibility to implement any revenue-sharing strategy needed.
 
-* At the moment, there’s no enforced logic on what address the relayWorker attribute from a RelayRequest or DeployRequest can be. We propose for it to be a MultiSig contract address, with all the fee distribution logic. 
-* The relayWorker attribue will be removed from the RelayRequest and DeployRequest. A new attribute called feesReceiver will be implemented and configured in the RelayServer:
+* The relayWorker attribute has been removed from the RelayRequest and DeployRequest. A new attribute called feesReceiver will be implemented and configured in the RelayServer:
     * The feesReceiver could be the worker or MultSig contract. 
 * The SmartWallet will pay to the feesReceiver. The feesReceiver will hold the funds of each user payment.
 * Upon payment from the SmartWallet, the feesReceiver will not perform any distribution logic to avoid increasing the cost of the relay service for the user.

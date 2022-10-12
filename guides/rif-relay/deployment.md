@@ -18,10 +18,10 @@ permalink: /guides/rif-relay/deployment/
       To start the process just execute the following command:
 
       ```
-      npx truffle migrate --network regtest
+      npm run deploy regtest
       ```
 
-      > Note: The migrate command is using the Regtest configuration that was previously configured in the truffle.js file.
+      > Note: The deploy script is using the Regtest configuration that was previously configured in the truffle.js file.
 
       After the deployment we will see the summary of the deployed contracts. Most of this contracts are the on-chain components that will be used by RIF Relay and some are for testing purposes.
 
@@ -51,7 +51,7 @@ permalink: /guides/rif-relay/deployment/
       As we can see we have two sets of Smart Wallets with their own verifiers. This is because each verifier use the factory to do deploy and relay validations. For testing purposes we will be using the Smart Wallet Contracts. 
 
   - 2) Collector Contract
-    * In principle, any number of Collector contracts can be deployed and used. This does not automatically occur alongside the deployment of the rest of the Relay contracts during the execution of migrations since usage of the Revenue Sharing feature is optional. For an overview of the Collector contract please see [the corresponding architecture document section](/rif/relay/architecture/#collector).
+    * The Revenue Sharing is an optional feature that can be implemented using a collector contract. In principle, any number of Collector contracts can be deployed and used. This does not automatically occur alongside the deployment of the rest of the Relay contracts. For an overview of the Collector contract please see [the corresponding architecture document section](/rif/relay/architecture/#collector).
 
       Before deploying a Collector contract please make sure that:
       1. The token chosen for this contract matches the one used for relayed transaction fees. **Any tokens other than the one set at the time of the Collector deployment which are sent to the contract will be impossible to retrieve, including the native token**. 
@@ -121,7 +121,7 @@ permalink: /guides/rif-relay/deployment/
     * RIF Relay only accepts whitelisted tokens. Locally there is a script that can be use to whitelist the tokens.
 
       ```
-      npm run allowTokens 0x726ECC75d5D51356AA4d0a5B648790cC345985ED --network regtest
+      npm run allowTokens 0x726ECC75d5D51356AA4d0a5B648790cC345985ED regtest
       ```
       > The allowTokens script assumes that you are in Regtest and uses the account[0] as the owner of the contracts and that’s important because only the owner can allow tokens on the contracts.
 
@@ -151,19 +151,7 @@ permalink: /guides/rif-relay/deployment/
 
       > The Relay and Deploy verifier are using the contracts from the Smart Wallet section in the summary.
 
-      Each key of the file have the following meaning:
-
-      - **url**: is the URL where the relay server will be deployed, it could be localhost or the IP of the host machine.
-      - **port**: the port where the relay server will be hosted.
-      - **relayHubAddress**: is the relay hub contract address.
-      - **relayVerifierAddress**: is the relay verifier contract address.
-      - **deployVerifierAddress**: is the deploy verifier contract address.
-      - **gasPriceFactor**: is the gas price factor used to calculate the gas on the server, you can leave it as 1.
-      - **rskNodeUrl**: is the RSK node endpoint URL, where the RSK node is located.
-      - **devMode**: it indicates to the server if we are in development mode or not.
-      - **customReplenish**: set if the server uses a custom replenish function or not.
-      - **logLevel**: is the log level for the relay server.
-      - **workdir**: is the absolute path to the folder where the server will store the database and all its data.
+      The meaning of each key can be found in [RIF Relay Server Execution](https://github.com/rsksmart/rif-relay-server#server-execution)
 
       Now we can start the server with the following command:
 
@@ -249,19 +237,7 @@ permalink: /guides/rif-relay/deployment/
 
       > The [contracts](https://developers.rsk.co/rif/relay/contracts/#primary-contracts) that are been used, are the primary one that does not have support for CustomSmartWallet.
 
-      Each key of the file have the following meaning:
-
-      - **url**: is the URL where the relay server will be deployed, it could be localhost or the IP of the host machine.
-      - **port**: the port where the relay server will be hosted.
-      - **relayHubAddress**: is the relay hub contract address.
-      - **relayVerifierAddress**: is the relay verifier contract address.
-      - **deployVerifierAddress**: is the deploy verifier contract address.
-      - **gasPriceFactor**: is the gas price factor used to calculate the gas on the server, you can leave it as 1.
-      - **rskNodeUrl**: is the RSK node endpoint URL, where the RSK node is located.
-      - **devMode**: it indicates to the server if we are in development mode or not.
-      - **customReplenish**: set if the server uses a custom replenish function or not.
-      - **logLevel**: is the log level for the relay server.
-      - **workdir**: is the absolute path to the folder where the server will store the database and all its data.
+      The meaning of each key can be found in [RIF Relay Server Execution](https://github.com/rsksmart/rif-relay-server#server-execution)
 
       Now we can start the server with the following command:
 
