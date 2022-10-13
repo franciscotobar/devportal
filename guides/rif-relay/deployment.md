@@ -55,10 +55,10 @@ permalink: /guides/rif-relay/deployment/
 
       Before deploying a Collector contract please make sure that:
       1. The token chosen for this contract matches the one used for relayed transaction fees. **Any tokens other than the one set at the time of the Collector deployment which are sent to the contract will be impossible to retrieve, including the native token**. 
-      2. The owner of the Collector contract has been chosen (be it a multisig contract address, a regular contract address or an EOA). This does not need to match the address deploying the contract, but please note that if there are no means of signing Collector contract function calls with the owner address **all revenue sharing funds will be permanently locked in the contract**.
+      2. The owner of the Collector contract has been chosen (be it a multisig contract address, a regular contract address or an EOA). This does not need to match the address deploying the contract, but please note that the owner should be able to call the withdraw function from the collector contract otherwise **all revenue sharing funds will be permanently locked in the contract**. 
       3. Partners and their shares have been defined correctly. This means that beneficiary shares must collectively add up to 100. As with the previous point, any tokens sent to an address without its private key held by its beneficiary will be lost. For an example of a structurally valid revenue shares definition see [this deploy collector task input sample](https://github.com/rsksmart/rif-relay-contracts/blob/PP-94/revenue-sharing-model/deploy-collector.input.sample.json).
 
-    * To deploy the Collector contract we will be using the [RIF Relay Contract](https://github.com/rsksmart/rif-relay-contracts) and [Safe contracts v1.2.0](https://github.com/gnosis/safe-contracts/tree/v1.2.0).
+    * To deploy the Collector contract we will be using the [RIF Relay Contract](https://github.com/rsksmart/rif-relay-contracts) and [Safe contracts v1.2.0](https://github.com/gnosis/safe-contracts/tree/v1.2.0), **Although we are using the safe contracts as example, this is not mandatory as explained before, it could be a multisig contract address, a regular contract address or an EOA**.
 
       In the safe contracts project we will deploy the contracts in the Regtest network. 
       ```
@@ -188,7 +188,7 @@ permalink: /guides/rif-relay/deployment/
     * All the necessary tools to do the deployments were included in [RIF Relay Contract](https://github.com/rsksmart/rif-relay-contracts). To start the process on Testnet we need an account with funds. The funds retreival con be done from the [tRBTC Faucet](https://faucet.rsk.co/).
 
       ```
-      npx truffle migrate --network testnet
+      npm run deploy testnet
       ```
       > Take in consideration that the testnet network needs to be configured in the truffle.js file.
 
@@ -197,7 +197,7 @@ permalink: /guides/rif-relay/deployment/
 
     Before deploying a Collector contract please make sure that:
       1. The token chosen for this contract matches the one used for relayed transaction fees. **Any tokens other than the one set at the time of the Collector deployment which are sent to the contract will be impossible to retrieve, including the native token**. 
-      2. The owner of the Collector contract has been chosen (be it a multisig contract address, a regular contract address or an EOA). This does not need to match the address deploying the contract, but please note that if there are no means of signing Collector contract function calls with the owner address **all revenue sharing funds will be permanently locked in the contract**.
+      2. The owner of the Collector contract has been chosen (be it a multisig contract address, a regular contract address or an EOA). This does not need to match the address deploying the contract, but please note that the owner should be able to call the withdraw function from the collector contract otherwise **all revenue sharing funds will be permanently locked in the contract**. 
       3. Partners and their shares have been defined correctly. This means that beneficiary shares must collectively add up to 100. As with the previous point, any tokens sent to an address without its private key held by its beneficiary will be lost. For an example of a structurally valid revenue shares definition see [this deploy collector task input sample](https://github.com/rsksmart/rif-relay-contracts/blob/PP-94/revenue-sharing-model/deploy-collector.input.sample.json).
 
     * 
@@ -275,7 +275,7 @@ permalink: /guides/rif-relay/deployment/
 
 
       ```
-      npm run register --network <RSKJ_NODE_URL> --hub <RELAY_HUB_CONTRACT_ADDRESS> -m <secret_mnemonic> --from <ADDRESS>  --funds <FUNDS> --stake <STAKE> --relayUrl <RELAY_URL>
+      npm run register -mmnemonic <secret_mnemonic> --account <ADDRESS>  --funds <FUNDS> --stake <STAKE> --config_file <PATH>
       ```
       > The register command can receive multiple parameters to simplify the interaction, more information can be found in the [RIF Relay Server](https://github.com/rsksmart/rif-relay-server#server-registration) documentation.
 

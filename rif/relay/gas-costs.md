@@ -10,9 +10,11 @@ The overhead gas cost is the extra amount of gas required to process the relay c
 
 ## SmartWallet templates
 
-RIF Relay V1 only has one SmartWallet [template](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol), which can be used as-is, or be injected with extra logic during the SmartWallet instance creation.
+RIF Relay V0.1 only has one SmartWallet [template](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol), which can be used as-is, or be injected with extra logic during the SmartWallet instance creation.
 
-V2 introduces a cheaper template ([SmartWallet](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol)), to be used when there's no need for extra custom-logic in the smart wallets. The behaviour is the same as the CustomSmartWallet [template](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol) of V2, but without this capability.
+V0.2 introduces a cheaper template ([SmartWallet](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol)), to be used when there's no need for extra custom-logic in the smart wallets. The behaviour is the same as the CustomSmartWallet [template](https://github.com/rsksmart/rif-relay/blob/master/contracts/smartwallet/SmartWallet.sol) of V0.2, but without this capability.
+
+### Gas cost from the deployment of each template. 
 
 
 | RIF Version | SW Template       | Avg. overhead gas |
@@ -26,7 +28,7 @@ V2 introduces a cheaper template ([SmartWallet](https://github.com/rsksmart/rif-
 Note that the instance of CustomSmartWallet used didn't point to any extra custom logic.
 
 ## Transaction Batching
-RIF Relay V2 also introduces transaction batching
+RIF Relay V0.2 also introduces transaction batching
 
 ### Scenarios
 

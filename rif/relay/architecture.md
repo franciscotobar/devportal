@@ -36,17 +36,16 @@ permalink: /rif/relay/architecture/
 
 ## Introduction
 
-The system is designed to achieve transaction sponsorship at a low cost. The cost of the relay service provided by “sponsors” is agreed upon among the parties off-chain. The low cost of transactions on RSK contributes to keeping overall service costs low as well.
+The RIF Relay system is designed to achieve transaction sponsorship at a low cost. The cost of the relay service provided by the “sponsors” is agreed upon among the parties off-chain. The low cost of transactions on RSK contributes to keeping overall service costs low as well.
 
 The RIF Relay system is made up of various components, some of which are essential and others which are auxiliary.
 An overview of this is as follows:
 
-On-chain, the system cannot work without its Smart Contracts, which encompass Smart Wallets plus the Relay Hub.
+**On-chain**, the system cannot work without its Smart Contracts, which encompass Smart Wallets plus the Relay Hub.
 
-Off-chain, at least one Relay Server is needed to interact with the contracts. Without a Relay Server, envelopes cannot be created and sent to the contracts.
+**Off-chain**, at least one Relay Server is needed to interact with the contracts. Without a Relay Server, envelopes cannot be created and sent to the contracts.
 
 Details for each of these components are expanded down below, as well as an introductory glossary.
-
 
 ### Glossary
 
@@ -68,7 +67,7 @@ Details for each of these components are expanded down below, as well as an intr
 ## On-Chain components
 
 ### Relay Hub
-The Relay Hub is the main component of the RIF Relay architecture. It acts as an interface with the Relay Server and the whole on-chain architecture. It forwards all the transactions to their respective contracts while checking validity of the worker that is processing the transaction. 	
+The Relay Hub is the main component of the RIF Relay architecture. It acts as an interface with the Relay Server and the whole on-chain architecture. It forwards all the transactions to their respective contracts while checking the validity of the worker that is processing the transaction. 	
 
 It also forms part of the relay worker’s registration process together with the Relay Managers. Furthermore, the Relay Hub keeps the stake amount for each Relay Manager to guarantee good behavior from their workers. 
 The account staking for a specific Relay Manager for the first time becomes the owner of the stake, only this account can make subsequent stakes for this specific RelayManager.
@@ -85,9 +84,6 @@ Smart Wallet are contracts that verify forwarded data and subsequently invoke th
 
 It is the component that calls the Recipient contract (i.e, the msg.sender address the Recipient will see). During the execution, the contract verifies the Relay Request and, if it’s valid, it calls the defined Recipient’s function, otherwise it reverts the invocation. The verification includes checking that the owner of the SmartWallet made the request, rejecting any request with an invalid signature, and preventing replay attacks using a nonce.
 
-### Custom Smart Wallet
-A Smart Wallet that could define a custom logic that replaces what is done after executing each transaction.
-
 ### Relay Manager
 An EOA that has a staked balance. Any penalization done against a Relay Worker impacts the Relay Manager’s stake. A Relay Worker can be managed by only one Relay Manager. A Relay Manager can have one or more Relay Workers. The responsibilities of the Relay Manager are: registering the Relay Server and adding relay workers, both in the Relay Hub.
 
@@ -101,7 +97,7 @@ When a Relay Manager unauthorised a Relay Hub, it means it is unstaking from it,
 Unstaking has a predefined delay (in blocks). This is intended to prevent the Relay Manager from unstaking before a slashing that was going to occur.
 
 ### Relay Worker
-An EOA that belongs to only one Relay Manager. It’s the sender of the Relay Request. Since the Relay Worker is the sender of the request is the one that pays for the fee and gas consumption from each transaction. It also collects the fees in ERC20 that are charged for relaying the transactions. 
+An EOA that belongs to only one Relay Manager. Since the Relay Worker is the sender of the request, it is the one that pays for the gas fees for each transaction. It **may** also collect the fees in ERC20 that are charged for relaying the transactions.
 
 ### Relay & Deploy Verifier
 Contracts that authorize a specific relay or deploy request (see the [Relay & Deploy Requests](#relay--deploy-requests) section).
@@ -114,19 +110,19 @@ Two example implementations are provided:
 
 The Collector is an optional smart contract used for the Revenue Sharing feature. Normally, relay fees are paid to the worker account which relays the transaction.
 
-Collector contracts are designed to hold revenue generated from relayed transactions so that they can be later given out to partners according to the distribution of shares written in the contract. They are initialized with a specific token to hold, a set of partner addresses (each set with their own share of collected revenues) plus an owner which can modify the shares or execute the withdrawal and distribution of funds. Shares for each partner are expressed in integers representing a percentage and must add up to exactly 100. Any number of partners can be specified.
+Collector contracts are designed to hold revenue generated from relayed transactions so that in the future they can be later given out to partners according to the distribution of shares written in the contract. They are initialized with a specific token to hold, a set of partner addresses (each set with their own share of collected revenues) plus an owner which can modify the shares or execute the withdrawal and distribution of funds. Shares for each partner are expressed in integers representing a percentage and must add up to exactly 100. Any number of partners can be specified.
 
 The owner of the contract can be any address, including but not limited to a multisig contract (see [Gnosis Safe Contracts](https://github.com/gnosis/safe-contracts)). Using a multisig address can be a good idea if ownership of the contract needs to be shared, so that decisions like distributing collected fees to partners or modifying revenue shares can be taken collectively. An ownership transfer function is also available.
 
 Any number of Collector contracts can be deployed and used to share revenue, as long as their addresses are specified in relay requests. The withdrawal of funds from any Collector contract is completely independent of the RIF Relay flow and can be executed at any arbitrary point in time.
 
-For steps on how to deploy a Collector contract (plus other technical details) please see [the Collector section](/rif/relay/operator-manual/#deploy-collector-contracts) of the Operator Manual.
+For steps on how to deploy a Collector contract (plus other technical details) please see [the Collector section](/guides/rif-relay/deployment) of the deployment process.
 
 
 ### Proxies
 
 #### Template
-It's the logic that would be executed on each transaction. In this specific scenario is the Smart Wallet contract. 
+It's the logic that would be executed on each transaction. In this specific scenario, it is the Smart Wallet contract. 
 
 #### Proxy Factory
 Factory of Proxies to the SmartWallet. The proxy factory is in charge of deploying the smart wallets contracts using the template, during the deployment it executes the initialization from each smart wallet. 
@@ -134,7 +130,7 @@ Factory of Proxies to the SmartWallet. The proxy factory is in charge of deployi
 #### Proxy
 The proxy is only implemented in the Custom Smart Wallet because it delegates every call to a SmartWallet logic address. This proxy is the one instantiated per SmartWallet, and it will receive the SmartWallet address as Master Copy (MC). So every call made to this proxy will end up executing the logic defined in the MC.
 
-For the transaction execution (´execute()´ call), MC logic will do the signature verification and payment. Then it will execute the request, and, if custom logic was defined, it will forward the flow to it before returning.
+For the transaction execution (`execute()` call), MC logic will do the signature verification and payment. Then it will execute the request, and, if custom logic was defined, it will forward the flow to it before returning.
 
 During the initialization of the Custom Smart Wallet a custom logic can be set (which would impact the proxy’s state of course), the initialization process and set of the custom logic can only be done during the deployment of the smart wallet. 
 
@@ -175,7 +171,7 @@ The **Deploy request** structure that wraps the transaction sent to deploy a Sma
 A provider and wrapper for all the smart contract methods that needs to be exposed to interact with the other components.
 
 ### Relay Client
-It's a typescript library to interact with the RIF Relay system. It provides APIs to find a relay, and to send transactions through it. Gives access to expose methods from Relay Common to interact with the blockchain.
+It's a typescript library to interact with the RIF Relay system. It provides APIs to find a relay, and to send transactions through it.It also gives access to expose methods from Relay Common to interact with the blockchain.
 
 It can work as an access point to the Relay system. It creates, signs, and sends the Sponsored transaction, which is signed by the requester and forwarded to the Relay Server via the HTTP protocol.
 
@@ -183,7 +179,7 @@ It can work as an access point to the Relay system. It creates, signs, and sends
 It is not _strictly_ needed since any dApp or user could relay transactions using merely a Relay Server and the smart contracts, although this is arguably harder to do manually.
 
 ### Relay Provider
-The access point to the Relay system for dApps using Web3. It wraps the RelayClient to provide Web3 compatibility.
+The access point to the Relay system for dApps using Web3. It wraps the `RelayClient` to provide Web3 compatibility.
 
 ## Execution flow
 
@@ -199,10 +195,10 @@ The access point to the Relay system for dApps using Web3. It wraps the RelayCli
 6. The Relay Worker account is an EOA registered in the Relay Hub.
 7. The Relay Server sends the transaction to the Relay Hub using the same worker account as the previous step, executing the `relayCall` function of the Relay Hub contract.
     - When the Relay Hub receives a transaction from a Relay Worker, it verifies with the Stake Manager that the Worker’s Relay Manager has indeed locked funds for staking. If not, the execution is reverted.
-    - The Relay Worker account must have funds to pay the consumed gas (RBTC).
-        - This verification is done in the Relay Client and in the Relay Server as well, by calling the Relay Verifier. The verifier checks that it accepts the token used to pay and that the payer has a sufficient token balance. In addition, it verifies the used smart wallet is the correct one. 
-8. The RelayHub instructs the Smart Wallet to execute the Relay Request through the GsnEip712Library library.
-9. The Smart Wallet checks the signature and the nonce of the Requester, reverting if it fails the checking.
+    - The Relay Worker account must have funds to pay for the consumed gas (RBTC).
+        - This verification is done in the Relay Client and in the Relay Server as well, by calling the Relay Verifier. The verifier checks that it accepts the token used to pay and that the payer has a sufficient token balance. In addition, it verifies that the used smart wallet is the correct one. 
+8. The RelayHub instructs the Smart Wallet to execute the Relay Request through the [GsnEip712Library](#GSNEip712Library) library.
+9. The Smart Wallet checks the signature and the nonce of the Requester, reverting if it fails the checks.
 10. Then, the Smart Wallet performs the token transfer between the Requester and the token recipient, using the data received within the Relay Request.
 11. It invokes the recipient contract with the indicated method in the Forward Request.
 

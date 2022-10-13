@@ -5,6 +5,8 @@ tags: rif, envelope, relay, user, guide, smart, wallet
 permalink: /guides/rif-relay/smart-wallets/
 ---
 
+This guide is intended for testing purposes and we will be using additional testing contracts that were included in the project, like the TestToken(ERC20). All the utils scripts are executed from the account[0] from the regtest blockchain. 
+
 ## Pre-Requisites
 
 * Follow the deployment process in [Deployment Guide](/guides/rif-relay/deployment).
@@ -12,7 +14,7 @@ permalink: /guides/rif-relay/smart-wallets/
 
 ## RIF Relay SDK
 
-The SDK was developed to interact with a dapp and simplify the process of interacting with RIF Relay. The process to create an instance of RIF Relay SDK can be found [RIF Relay SDK](/guides/rif-relay/integrate#rif-relay-sdk).
+The SDK was developed to simplify the interaction between dapps and RIF Relay. For further details about the SDK usage, please refer to the [related guide](/guides/rif-relay/integrate#rif-relay-sdk).
 
 ## Ways to create smart wallets
 
