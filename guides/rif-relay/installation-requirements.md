@@ -53,7 +53,7 @@ You'll need to install both `docker` as well as `docker-compose`.
 
 The RIF Relay components can be deployed using Docker or locally using [Truffle](/guides/rif-relay/installation-requirements#truffle)
 
-We created a [guide](/guides/rif-relay/integrate#docker) to deploy the components with docker. 
+A guide for the [RIF Relay Server](https://github.com/rsksmart/rif-relay-server#execute-as-a-docker-container) can be found in the repository.
 
 #### Running on macOS
 

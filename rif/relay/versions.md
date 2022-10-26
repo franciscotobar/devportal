@@ -46,7 +46,7 @@ It is important to recall that - as a security measure - V0.1 contracts deployed
 
 ### Overview
 
-Including a revenue-sharing mechanism to the RIF Relay service doesn't introduce a price penalty to the RIF Relay users. We modified the address used to receive tha payment (in tokens) for a successful transaction relay (or deploy).
+Including a revenue-sharing mechanism to the RIF Relay service doesn't introduce a price penalty to the RIF Relay users. We modified the address used to receive the payment (in tokens) for a successful transaction relay (or deploy).
 
 In V0.2 implementation, the RelayRequest and the DeployRequest include a relayWorker attribute to identify which account paid for the gas. The RIF Relay SmartWallet pays directly to this account the number of tokens negotiated for the Relay (or Deploy) service. In V1 The relayWorker attribute was removed from the RelayRequest and DeployRequest. A new attribute called feesReceiver was implemented and configured in the RelayServer
 

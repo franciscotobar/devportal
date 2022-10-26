@@ -267,7 +267,7 @@ permalink: /guides/rif-relay/deployment/
         Now execute the command the register command.
 
         ```
-        npm run register -mmnemonic <secret_mnemonic> --account <ADDRESS>  --funds <FUNDS> --stake <STAKE> --config_file <PATH>
+        npm run register -mnemonic <secret_mnemonic> --account <ADDRESS>  --funds <FUNDS> --stake <STAKE> --config_file <PATH>
         ```
         > The register command can receive multiple parameters to simplify the interaction, more information can be found in the [RIF Relay Server](https://github.com/rsksmart/rif-relay-server#server-registration) documentation.
 

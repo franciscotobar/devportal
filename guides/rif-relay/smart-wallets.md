@@ -5,7 +5,7 @@ tags: rif, envelope, relay, user, guide, smart, wallet
 permalink: /guides/rif-relay/smart-wallets/
 ---
 
-This guide is intended for testing purposes and we will be using additional testing contracts that were included in the project, like the TestToken(ERC20). All the utils scripts are executed from the account[0] from the regtest blockchain. 
+This guide is intended to explain more about the interaction and deployment of the Smart Wallets. We will be using additional testing contracts that were included in the project, like the TestToken(ERC20). All the utils scripts are executed from the account[0] from the regtest blockchain. 
 
 ## Pre-Requisites
 

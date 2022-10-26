@@ -155,7 +155,3 @@ To implement and use your own replenish strategy:
 2. On the function `replenishStrategy` write your new replenish strategy.
 3. Re build the project `npm run build`
 4. Add the command `--customReplenish` when running a RIF Relay Server or change the config json file to set `customReplenish` on true.
-
-### Docker 
-
-## RIF Relay Server
