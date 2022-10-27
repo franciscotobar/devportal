@@ -152,6 +152,45 @@ The server is a service daemon, running as an HTTP service. It advertises itself
 
 The Relay Server has mechanisms that try to avoid running out of balance in the workers. The Relay Manager keeps sending native cryptocurrency to the workers based on a specific minimum balance.
 
+#### Start flow
+
+The start flow diagram represents the process that is followed by the Relay Server to start receiving requests, even that the server will be receiving requests doesn't mean that can handle it, since it needs balance to process each request. 
+![Relay - Start Flow](/assets/img/rif-relay/start.jpg)
+
+1. Generates(private keys) the Workers and Manager accounts.
+2. Initialise the instance for each contract that will be interacting with the server. 
+  - The RelayHub contract is the key contract for the start flow since its the contract that have the events of interest.  
+3. Initalise the Relay Server.
+  -The Relay Server has all logic for the interaction between off-chain and on-chain components.  
+4. Initialise the RegistationManager.
+  - The Registration Manager starts querying for events related to the registration process(StakeAdded, WorkerAdded) to identify if can register the Server on the RelayHub.
+5. The Relay Server start querying for changes on the blochain using the RelayHub.
+
+#### Register flow
+
+The register flow diagram represents the process to provide the necessary stake/balance to the manager/workers for the Relay Server start processing requests and to register the server in the RelayHub.
+
+![Relay - Register Flow](/assets/img/rif-relay/register.jpg)
+
+1. Gets the Relay Server data.
+2. Validate if the server was already register in the RelayHub.
+3. Initialise the instance for each contract that will be interacting with the server. 
+  - The RelayHub contract is the key contract for the register flow since its the contract that have the events of interest.  
+4. Query the stakeInfo for the manager and validates if already staked.
+5. Funds the manager if necessary.
+
+### Interval Handler
+
+The interval handler diagram represents the process from the Relay Server to interact with the blockchain and process the transactions.
+
+![Relay - Interval Handler Flow](/assets/img/rif-relay/interval-handler.jpg)
+
+1. Get the latest mined block by the blockachain.
+2. Check if the Relay Server state needs to be refreshed based on the blocks minted.
+3. Refresh the gas price.
+4. Get the past events from the RelayHub.
+5. Add the workers and register the Relay Server if meets the requirements.
+6. Keep listening for transactions and new events.
 
 ### Relay & Deploy Requests
 A relay request is the sponsored transaction, the structure used to relay a transaction. It is formed by Relay Data and Forward Request:
@@ -185,7 +224,7 @@ The access point to the Relay system for dApps using Web3. It wraps the `RelayCl
 
 ### Relaying (Smart Wallet already created)
 
-![Relay - Execution Flow](/assets/img/rif-relay/Execution-flow.jpg)
+![Relay - Execution Flow](/assets/img/rif-relay/execution.jpg)
 
 1. A Requester creates a request.
 2. A Requester sends the request to the Relay Client (through a Relay Provider).
@@ -204,7 +243,7 @@ The access point to the Relay system for dApps using Web3. It wraps the `RelayCl
 
 ### Gasless Smart Wallet creation
 
-![Relay - Smart Wallet with Gasless EOA](/assets/img/rif-relay/SmartWalletWithGasless.jpg)
+![Relay - Smart Wallet with Gasless EOA](/assets/img/rif-relay/relay.jpg)
 
 The gas-less requester has a SmartWallet address where they receive tokens but don't use them. If the requester needs to call a contract, e.g., to send the tokens to another account, they must deploy a Smart Wallet first.
 
@@ -232,4 +271,4 @@ The gas-less requester has a SmartWallet address where they receive tokens but d
 ## Deprecated
 
 ### Paymaster
-V2 deprecated the Paymaster contracts in favor of the Verifiers (see [versions](/rif/relay/versions/)).
+V0.2 deprecated the Paymaster contracts in favor of the Verifiers (see [versions](/rif/relay/versions/)).

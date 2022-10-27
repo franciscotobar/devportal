@@ -19,6 +19,7 @@ The project is divided in 4 modules that interact with each other. Each project 
 3. [RIF Relay Client](https://github.com/rsksmart/rif-relay-client)
 4. [RIF Relay Server](https://github.com/rsksmart/rif-relay-server)
 5. [RIF Relay SDK](https://github.com/rsksmart/rif-relay-sdk)
+6. [RIF Relay Smaple dApp](https://github.com/rsksmart/rif-relay-sample-dapp)
 
 
 

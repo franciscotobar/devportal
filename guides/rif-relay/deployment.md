@@ -143,6 +143,7 @@ permalink: /guides/rif-relay/deployment/
         npm run allowTokens 0x726ECC75d5D51356AA4d0a5B648790cC345985ED regtest
         ```
         > The allowTokens script assumes that you are in Regtest and uses the account[0] as the owner of the contracts and that’s important because only the owner can allow tokens.
+    
     - Testnet
       * To whitelist a token on Testnet we need to execute the `acceptToken(address token)` on the Relay Verifiers:
 
@@ -158,7 +159,7 @@ permalink: /guides/rif-relay/deployment/
 - 4) Run RIF Relay Server
   * Once we have all the on-chain components, we will continue with the off-chain components. This process is done with the [RIF Relay Server](https://github.com/rsksmart/rif-relay-server).
 
-    Prior starting the Relay Server, we need to update the configuration file, we save the configuration file as **server-config.json**.
+    Prior starting the Relay Server, we need to update the configuration file, we save the configuration file as **server-config.json**. Some usefuls diagrams about the way that the Relay Server works can be found [here](/rif/relay/architecture/#relay-server).
 
   [](#top "collapsible")
     - Regtest
