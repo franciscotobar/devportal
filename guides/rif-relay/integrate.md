@@ -45,7 +45,9 @@ In any case, you'll need to have the server installed and running. To achieve th
 
 ### RIF Relay SDK
 
-To simplify the integration process a SDK was developed, the SDK is a library that needs to be used from a dApp that will provide us a way to sign transactions. The SDK job is to provide a simple access to the general functions from the RIF Relay system. Below are the steps to create an instance of the sdk:
+To simplify the integration process a SDK was developed, the SDK is a library that needs to be used from a dApp that will provide us a way to sign transactions.
+
+The SDK's job is to provide a simple access to the general functions from the RIF Relay system. To create an instance of the SDK, follow the steps below:
 
 ```typescript
   import {
@@ -87,9 +89,9 @@ To simplify the integration process a SDK was developed, the SDK is a library th
 
 Where variables are:
 
-  * **RSK_CHAIN_ID**: the RSK node chain id where is running (ex: 33).
-  * **RIF_RELAY_SERVER_URL**: the RIF Relay Server url (ex: http://localhost:8090).
-  * **RSK_NODE_ENDPOINT**: the RSK node endpoint where is running (ex: http://localhost:4444).
+  * **RSK_CHAIN_ID**: The RSK node chain ID which is running (e.g. `33`).
+  * **RIF_RELAY_SERVER_URL**: The RIF Relay Server URL (e.g. `http://localhost:8090`).
+  * **RSK_NODE_ENDPOINT**: The RSK node endpoint which is running (e.g. `http://localhost:4444`).
 
 
 ### Relay Request
@@ -147,11 +149,11 @@ Each relayed transaction is signed by a Relay Worker account. The worker account
 
 Worker accounts must always have some minimum balance to pay gas for the transaction. These balances can be managed by implementing a replenishment strategy. The Relay Manager can use the strategy to top off a relay worker's account when the balance gets too low.
 
-We provide a default implementation for a replenishment strategy. RIF Relay solution integrators can implement their own replenish strategy.
+We provide a default implementation for a replenish strategy. RIF Relay solution integrators can implement their own replenish strategy.
 
 To implement and use your own replenish strategy:
 
 1. In the folder `src` from the RIF Relay Server project, open `ReplenishFunction.ts` with a text editor.
 2. On the function `replenishStrategy` write your new replenish strategy.
 3. Re build the project `npm run build`
-4. Add the command `--customReplenish` when running a RIF Relay Server or change the config json file to set `customReplenish` on true.
+4. Add the command `--customReplenish` when running a RIF Relay Server or change the config JSON file to set `customReplenish` on true.

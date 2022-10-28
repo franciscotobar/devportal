@@ -1,5 +1,5 @@
 ---
 layout: redirect
-permalink: /rif/relay/deployment/
+permalink: /rif/relay/launch/
 redirect: /guides/rif-relay/deployment/
 ---

@@ -82,7 +82,7 @@ It’s the “contract-based account” owned by the Requester’s EOA. Before e
 
 Smart Wallet are contracts that verify forwarded data and subsequently invoke the recipient contract of the transaction. Creating smart wallets does not have any gas cost providing the advantage that can be deployed only when necessary. 
 
-It is the component that calls the Recipient contract (i.e, the msg.sender address the Recipient will see). During the execution, the contract verifies the Relay Request and, if it’s valid, it calls the defined Recipient’s function, otherwise it reverts the invocation. The verification includes checking that the owner of the SmartWallet made the request, rejecting any request with an invalid signature, and preventing replay attacks using a nonce.
+It is the component that calls the Recipient contract (i.e, the `msg.sender` address the Recipient will see). During the execution, the contract verifies the Relay Request and, if it’s valid, it calls the defined Recipient’s function, otherwise it reverts the invocation. The verification includes checking that the owner of the SmartWallet made the request, rejecting any request with an invalid signature, and preventing replay attacks using a nonce.
 
 ### Relay Manager
 An EOA that has a staked balance. Any penalization done against a Relay Worker impacts the Relay Manager’s stake. A Relay Worker can be managed by only one Relay Manager. A Relay Manager can have one or more Relay Workers. The responsibilities of the Relay Manager are: registering the Relay Server and adding relay workers, both in the Relay Hub.
@@ -207,10 +207,10 @@ The **Deploy request** structure that wraps the transaction sent to deploy a Sma
 ### Tools
 
 ### Contract Interactor
-A provider and wrapper for all the smart contract methods that needs to be exposed to interact with the other components.
+A provider and wrapper for all the smart contract methods which need to be exposed to interact with the other components.
 
 ### Relay Client
-It's a typescript library to interact with the RIF Relay system. It provides APIs to find a relay, and to send transactions through it.It also gives access to expose methods from Relay Common to interact with the blockchain.
+This is a typescript library to interact with the RIF Relay system. It provides APIs to find a relay, and to send transactions through it. It also gives access to expose methods from Relay Common to interact with the blockchain.
 
 It can work as an access point to the Relay system. It creates, signs, and sends the Sponsored transaction, which is signed by the requester and forwarded to the Relay Server via the HTTP protocol.
 

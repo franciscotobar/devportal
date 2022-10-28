@@ -57,7 +57,7 @@ This change did not alter the current relay flow, keeping its cost as it is toda
 * Upon payment from the SmartWallet, the feesReceiver will not perform any distribution logic to avoid increasing the cost of the relay service for the user.
 * With this approach, no changes in the relay flow are required, and thus the introduction of a revenue-sharing mechanism will not impact the price of the relay service.
 * The relevant participants will form part of the MultiSig contract.
-    *  The MultiSig contract specify how much of the funds collected go to each participant (e.g., the relayServer operator, the wallet provider, the liquidity provider, and IOVlabs could be the participants).
+    *  The MultiSig contract specify how much of the funds collected go to each participant (e.g., the relayServer operator, the wallet provider, and the liquidity provider could be the participants).
     *   At a later time, an off-chain process will trigger the distribution process from the contract. This process can invoke the distribution function once per week, month, or when the funds in the contract surpass a certain threshold.
     *  The participants can modify the sharing parameters (e.g., the percentages used for the distribution among the participants) if they agree on the particular changes.
     * Multiple Revenue Sharing Strategies can exist, ideally one per group of participants.

@@ -2,7 +2,7 @@
 layout: rsk
 title: RIF Relay Installation Requirements
 tags: rif, envelope, relay, user, guide, install
-permalink: /guides/rif-relay/install/
+permalink: /guides/rif-relay/installation-requirements/
 ---
 
 ## Requirements
@@ -15,7 +15,7 @@ You need to have a running RSK node version [RSKj](https://github.com/rsksmart/r
 
 > The node can be run locally or using docker.
 
-When running a local RSKj node, we can configure the node to connect to a specific network; on this guide we will use `Regtest` and `Testnet`. 
+When running a local RSKj node, we can configure the node to connect to a specific network; in this guide we will use `Regtest` and `Testnet`. 
 
 ### Node & NPM
 
