@@ -11,8 +11,7 @@ permalink: /rif/relay/architecture/
   - [**Relay Hub**](#relay-hub)
   - [**Smart Wallet**](#smart-wallet)
   - [**Relay Manager**](#relay-manager)
-  - [**Stake Manager**](#relay-manager)
-  - [**Custom Smart Wallet**](#custom-smart-wallet)
+  - [**Stake Manager**](#stake-manager)
   - [**Relay Worker**](#relay-worker)
   - [**Relay & Deploy Verifier**](#relay--deploy-verifier)
   - [**Collector**](#collector)
@@ -23,14 +22,17 @@ permalink: /rif/relay/architecture/
   - [**GSNEip712Library**](#gsneip712library)
 - [**Off-Chain components**](#off-chain-components)
   - [**Relay Server**](#relay-server)
+    - [**Start Flow**](#start-flow)
+    - [**Register Flow**](#register-flow)
+    - [**Interval Handler**](#interval-handler)
   - [**Relay & Deploy Requests**](#relay--deploy-requests)
   - [**Tools**](#tools)
     - [**Contract Interactor**](#contract-interactor)
     - [**Relay Client**](#relay-client)
     - [**Relay Provider**](#relay-provider)
 - [**Execution flow**](#execution-flow)
-  - [**Relaying (Smart Wallet already created)**](#relaying-smart-wallet-already-created)
-  - [**Gasless Smart Wallet creation**](#gasless-smart-wallet-creation)
+  - [**Relaying (Smart Wallet already deployed)**](#relaying-smart-wallet-already-deployed)
+  - [**Sponsored Smart Wallet deployment**](#sponsored-smart-wallet-deployment)
 - [**Deprecated**](#deprecated)
   - [**Paymaster**](#paymaster)
 
@@ -152,7 +154,7 @@ The server is a service daemon, running as an HTTP service. It advertises itself
 
 The Relay Server has mechanisms that try to avoid running out of balance in the workers. The Relay Manager keeps sending native cryptocurrency to the workers based on a specific minimum balance.
 
-#### Start flow
+#### Start Flow
 
 The start flow diagram represents the process that is followed by the Relay Server to start receiving requests, even that the server will be receiving requests doesn't mean that can handle it, since it needs balance to process each request. 
 ![Relay - Start Flow](/assets/img/rif-relay/start.jpg)
@@ -166,7 +168,7 @@ The start flow diagram represents the process that is followed by the Relay Serv
   - The Registration Manager starts querying for events related to the registration process(StakeAdded, WorkerAdded) to identify if can register the Server on the RelayHub.
 5. The Relay Server start querying for changes on the blochain using the RelayHub.
 
-#### Register flow
+#### Register Flow
 
 The register flow diagram represents the process to provide the necessary stake/balance to the manager/workers for the Relay Server start processing requests and to register the server in the RelayHub.
 
@@ -222,7 +224,7 @@ The access point to the Relay system for dApps using Web3. It wraps the `RelayCl
 
 ## Execution flow
 
-### Relaying (Smart Wallet already created)
+### Relaying (Smart Wallet already deployed)
 
 ![Relay - Execution Flow](/assets/img/rif-relay/execution.jpg)
 
@@ -241,9 +243,9 @@ The access point to the Relay system for dApps using Web3. It wraps the `RelayCl
 10. Then, the Smart Wallet performs the token transfer between the Requester and the token recipient, using the data received within the Relay Request.
 11. It invokes the recipient contract with the indicated method in the Forward Request.
 
-### Gasless Smart Wallet creation
+### Sponsored Smart Wallet deployment
 
-![Relay - Smart Wallet with Gasless EOA](/assets/img/rif-relay/relay.jpg)
+![Relay - Sponsored Smart Wallet](/assets/img/rif-relay/relay.jpg)
 
 The gas-less requester has a SmartWallet address where they receive tokens but don't use them. If the requester needs to call a contract, e.g., to send the tokens to another account, they must deploy a Smart Wallet first.
 
