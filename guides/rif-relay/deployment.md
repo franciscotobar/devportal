@@ -134,7 +134,12 @@ permalink: /guides/rif-relay/deployment/
       * TBD
 
 - 3) Allow Tokens
-  * RIF Relay only accepts whitelisted tokens. There are multiple reasons to just allow whitelisted tokens but the main one is to ensure that RIF Relay is just accepting tokens that represent value for the sponsor.
+  * RIF Relay only accepts whitelisted tokens. There are multiple reasons to just allow whitelisted tokens but the main one is to ensure that RIF Relay it's accepting tokens that represent value for the sponsor.
+
+  * To whitelist a token we need to execute the `acceptToken(address token)` on the Relay Verifiers contracts:
+      * `SmartWalletDeployVerifier`
+      * `SmartWalletRelayVerifier`
+      > The contract execution needs to be done by the owner that is the account that did the deployment.
 
   [](#top "collapsible")
     - Regtest
@@ -142,15 +147,14 @@ permalink: /guides/rif-relay/deployment/
         ```
         npm run allowTokens 0x726ECC75d5D51356AA4d0a5B648790cC345985ED regtest
         ```
-        > The allowTokens script assumes that you are in Regtest and uses the account[0] as the owner of the contracts and that’s important because only the owner can allow tokens.
+        > The allowTokens uses the account[0] as the owner of the contracts and that’s important because only the owner can allow tokens.
     
     - Testnet
-      * To whitelist a token on Testnet we need to execute the `acceptToken(address token)` on the Relay Verifiers:
-
-        * `SmartWalletDeployVerifier`
-        * `SmartWalletRelayVerifier`
-
-        > The contract execution needs to be done by the owner that is the account that did the deployment.
+      * In the RIF Relay Contracts we will need to execute the command:
+        ```
+        npm run allowTokens 0x77740cE4d7897430E74D5E06540A9Eac2C2Dee70 testnet
+        ```
+        > The allowTokens script will use the testnet network configured in the truffle.js, this network will required to use the account that did deployment of the contracts. 
 
     - Mainnet
       * TBD

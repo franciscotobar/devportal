@@ -5,7 +5,7 @@ tags: rif, relay, gas station network, gsn
 permalink: /rif/relay/
 ---
 
-IF Relay is a secure sponsored transaction system that enables users to pay the transaction fees using ERC-20 tokens. This enables end users to transact entirely using one asset instead of having to manage a separate asset for gas.
+RIF Relay is a secure sponsored transaction system that enables users to pay the transaction fees using ERC-20 tokens. This enables end users to transact entirely using one asset instead of having to manage a separate asset for gas.
 
 For general information about RIF Relay, including its design, architecture, and specifications, please refer to the table of contents down below.
 
